@@ -1,6 +1,7 @@
 Our goal is to create custom blockly blocks so that users can easily create data visualizations.
 For this to occur, the user must first assemble the blocks.
-![alt text](./img/blockly_ds_demo1.png)
+
+![alt text](./img/merged.png)
 
 Blocks will have attributes (JSON) associated with them. 
 ```{
