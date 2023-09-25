@@ -1,13 +1,10 @@
-Blockly.HSV_SATURATION = 1;
-
 Blockly.Blocks['abs'] = {
   init: function() {
     this.appendValueInput("VAR")
         .setCheck("var")
-        .appendField("λ");
+        .appendField("lam");
     this.appendValueInput("EXPR")
-        .setCheck(["var", "exp", "Number"])
-        .appendField(".");
+        .setCheck(["var", "exp", "Number"]);
     this.setInputsInline(true);
     this.setOutput(true, "exp");
     this.setColour(130);
@@ -20,6 +17,7 @@ Blockly.Blocks['app'] = {
   init: function() {
     this.appendValueInput("EXPR1")
         .setCheck(["var", "exp", "Number"])
+        .appendField("app");
     this.appendValueInput("EXPR2")
         .setCheck(["var", "exp", "Number"]);
     this.setInputsInline(true);
@@ -33,7 +31,7 @@ Blockly.Blocks['app'] = {
 Blockly.Blocks['var'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("")
+        .appendField("var")
         .appendField(new Blockly.FieldTextInput("x"), "NAME");
     this.setOutput(true, "var");
     this.setColour(430);
@@ -41,7 +39,6 @@ Blockly.Blocks['var'] = {
     this.setHelpUrl("");
   }
 };
-
 Blockly.Blocks['math_number'] = {
   /**
    * Block for numeric value.
@@ -56,7 +53,6 @@ Blockly.Blocks['math_number'] = {
     this.setTooltip(Blockly.Msg.MATH_NUMBER_TOOLTIP);
   }
 };
-
 Blockly.JavaScript.forBlock['abs'] = function(block) {
   var var_name = Blockly.JavaScript.valueToCode(block, 'VAR', Blockly.JavaScript.ORDER_NONE);
   var expr_code = Blockly.JavaScript.valueToCode(block, 'EXPR', Blockly.JavaScript.ORDER_NONE);
@@ -76,7 +72,6 @@ Blockly.JavaScript.forBlock['var'] = function(block) {
   var code = var_name;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
-
 Blockly.Blocks['math_arithmetic'] = {
   /**
    * Block for arithmetic operations.
@@ -102,46 +97,6 @@ Blockly.Blocks['math_arithmetic'] = {
   }
 };
 
-Blockly.Blocks['functionDef'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput("f"), "NAME")
-        .appendField("=");
-    this.appendValueInput("EXPR")
-        .setCheck(["var", "exp", "Number"]);
-    this.setInputsInline(true);
-    this.setOutput(true, "exp");
-    this.setColour(48);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.JavaScript['functionDef'] = function(block) {
-  var func_name = block.getFieldValue('NAME');
-  var expr_code = Blockly.JavaScript.valueToCode(block, 'EXPR', Blockly.JavaScript.ORDER_NONE);
-  var code = 'const ' + func_name + ' = ' + expr_code + ';';
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
-
-Blockly.Blocks['functionCall'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput("f"), "NAME");
-    this.setOutput(true, "exp");
-    this.setColour(48);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.JavaScript['functionCall'] = function(block) {
-  var func_name = block.getFieldValue('NAME');
-  var code = func_name;
-  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-};
-
-
 Blockly.Blocks['plot_data'] = {
   init: function() {
     this.appendDummyInput()
@@ -154,6 +109,10 @@ Blockly.Blocks['plot_data'] = {
         .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["bar plot","OPTIONNAME"], ["line plot","OPTIONNAME"], ["box plot","OPTIONNAME"]]), "NAME");
+    this.appendDummyInput()
+        .appendField("Dataset: ");
+    this.appendValueInput("data")
+        .setCheck(null);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -173,7 +132,7 @@ Blockly.Blocks['import'] = {
     this.appendDummyInput();
     this.appendDummyInput();
     this.setInputsInline(true);
-    this.setNextStatement(true, null);
+    this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("");
  this.setHelpUrl("");
@@ -199,6 +158,24 @@ Blockly.Blocks['remove_null'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['combine_data'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dataset 1: ");
+    this.appendValueInput("dataset1")
+        .setCheck(null);
+    this.appendDummyInput()
+        .appendField("Dataset 2: ");
+    this.appendValueInput("dataset2")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setOutput(true, null);
     this.setColour(230);
  this.setTooltip("");
  this.setHelpUrl("");
