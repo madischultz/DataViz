@@ -139,15 +139,6 @@ Blockly.Blocks['import'] = {
   }
 };
 
-Blockly.Python['import'] = function(block) {
-  var text_inputdata = block.getFieldValue('inputData');
-  // Assemble Python code to import data into a Pandas DataFrame
-  var code = `import pandas as pd\n`;
-  code += `df = pd.read_csv('${text_inputdata}')\n`;
-  return code;
-};
-
-
 Blockly.Blocks['export'] = {
   init: function() {
     this.appendDummyInput()
