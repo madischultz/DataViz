@@ -24,6 +24,8 @@
         </xml>
     </div>
     <div class="row button-row">
+        <button onclick="generatePythonCode()">Generate Python</button>
+        <button onclick="runPythonCode()">Run Python</button> <!-- This would only be illustrative -->
         <button onclick="generateCode()">Generate JavaScript</button>
         <button onclick="runCode()">Run JavaScript</button>
         <button onclick="saveBlocks()">Save Blocks</button>
@@ -40,6 +42,16 @@
             scrollbars: true
         });
 
+        function generatePythonCode() {
+            var code = Blockly.Python.workspaceToCode(workspace); // Change JavaScript to Python
+            document.getElementById('codeDiv').innerText = code;
+        }
+
+        function runPythonCode() {
+            // Running Python code in the browser is not straightforward.
+            // You might want to send the generated code to a Python backend to run it.
+            alert('Running Python code in the browser is not straightforward. You might want to send the generated code to a Python backend.');
+        }
         function generateCode() {
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             document.getElementById('codeDiv').innerText = code;
