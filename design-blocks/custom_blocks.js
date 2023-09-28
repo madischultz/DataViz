@@ -1,3 +1,5 @@
+import {pythonGenerator} from 'blockly/python';
+
 Blockly.Blocks['abs'] = {
   init: function() {
     this.appendValueInput("VAR")
