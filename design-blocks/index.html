@@ -24,7 +24,8 @@
         </xml>
     </div>
     <div class="row button-row">
-        <button onclick="generateCode()">Generate JavaScript</button>
+        <button onclick="generateJS()">Generate JavaScript</button>
+        <button onclick="generatePython()">Generate Python</button>
         <button onclick="runCode()">Run JavaScript</button>
         <button onclick="saveBlocks()">Save Blocks</button>
         <button onclick="loadBlocks()">Load Blocks</button>
@@ -40,8 +41,13 @@
             scrollbars: true
         });
 
-        function generateCode() {
+        function generateJS() {
             var code = Blockly.JavaScript.workspaceToCode(workspace);
+            document.getElementById('codeDiv').innerText = code;
+        }
+
+        function generatePython() {
+            var code = Blockly.Python.workspaceToCode(workspace);
             document.getElementById('codeDiv').innerText = code;
         }
 
