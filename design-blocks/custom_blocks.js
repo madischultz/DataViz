@@ -140,11 +140,10 @@ Blockly.Blocks['import'] = {
 };
 
 Blockly.Python['import'] = function(block) {
-  var text_inputdata = block.getFieldValue('inputData');
+  var text_inputdata = block.getFieldValue('input_data');
   // Assemble Python code to import data into a Pandas DataFrame
   var code = `import pandas as pd\n`;
   code += `df = pd.read_csv('${text_inputdata}')\n`;
-  // var code = `print('hello')\n`
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
 
