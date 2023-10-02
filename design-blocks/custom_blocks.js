@@ -108,7 +108,7 @@ Blockly.Blocks['plot_data'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["bar plot","OPTIONNAME"], ["line plot","OPTIONNAME"], ["box plot","OPTIONNAME"]]), "NAME");
+        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_line"], ["line plot", "line_plot_id"], ["box plot", "geom_boxplot"]]), "NAME");
     this.appendDummyInput()
         .appendField("Dataset: ");
     this.appendValueInput("data")
@@ -145,6 +145,30 @@ Blockly.Python['import'] = function(block) {
   var code = `import pandas as pd\n`;
   code += `df = pd.read_csv('${text_inputdata}')\n`;
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+};
+
+Blockly.Python['plot_data'] = function(block) {
+  var x_title = block.getFieldValue('x');
+  var y_title = block.getFieldValue('y');
+  var plot_type = block.getFieldValue('NAME');
+  
+  if (plot_type == "bar plot") {
+    plot_type = "geom_bar";
+  } else if (plot_type == "line plot") {
+    plot_type = "geom_line";
+  } else if (plot_type == "box plot") {
+    plot_type = "geom_boxplot";
+  }
+
+  var code = `(ggplot(df, aes(x = ${x_title})) + ${plot_type}(aes(fill = "mfr")) + theme_bw())\n`;
+  console.log(code);
+  return code
+};
+
+
+Blockly.Python['remove_null'] = function(block) {
+  var code = `df = df.dropna()\n`;
+  return code
 };
 
 // Blockly.JavaScript.forBlock['import'] = function(block) {
