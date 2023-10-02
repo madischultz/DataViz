@@ -144,8 +144,18 @@ Blockly.Python['import'] = function(block) {
   // Assemble Python code to import data into a Pandas DataFrame
   var code = `import pandas as pd\n`;
   code += `df = pd.read_csv('${text_inputdata}')\n`;
-  return code;
+  // var code = `print('hello')\n`
+  return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
+
+// Blockly.JavaScript.forBlock['import'] = function(block) {
+//   var text_inputdata = block.getFieldValue('inputData');
+//   // Assemble Python code to import data into a Pandas DataFrame
+//   // var code = `import pandas as pd\n`;
+//   // code += `df = pd.read_csv('${text_inputdata}')\n`;
+//   var code = `print('hello')\n)`
+//   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+// };
 
 
 Blockly.Blocks['export'] = {

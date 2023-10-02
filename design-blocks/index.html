@@ -3,6 +3,7 @@
 <head>
     <title>A Blockly Lambda Calculus</title>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="https://unpkg.com/blockly/python_compressed"></script>
     <script src="custom_blocks.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -17,9 +18,9 @@
             <block type="math_arithmetic"></block> -->
             <block type="plot_data"></block>
             <block type="import"></block>
-            <block type="export"></block>
-            <block type="remove_null"></block>
-            <block type="combine_data"></block>
+            <!-- <block type="export"></block> -->
+            <!-- <block type="remove_null"></block> -->
+            <!-- <block type="combine_data"></block> -->
             
         </xml>
     </div>
@@ -50,8 +51,30 @@
         function runPythonCode() {
             // Running Python code in the browser is not straightforward.
             // You might want to send the generated code to a Python backend to run it.
-            alert('Running Python code in the browser is not straightforward. You might want to send the generated code to a Python backend.');
+            // alert('Running Python code in the browser is not straightforward. You might want to send the generated code to a Python backend.');
+
+            var pythonCode = python.pythonGenerator.workspaceToCode(workspace);
+            try {
+                var output = eval(pythonCode);
+                document.getElementById('outputDiv').innerText = output;
+            } catch (e) {
+                document.getElementById('outputDiv').innerText = 'Error: ' + e;
+            }
+
+
         }
+
+        // function runPythonCode() {
+        //     const pythonCode = python.pythonGenerator.workspaceToCode(workspace);
+        //     console.log(pythonCode)
+        //     try {
+        //         var output = eval(pythonCode);
+        //         document.getElementById('outputDiv').innerText = output;
+        //     } catch (e) {
+        //         document.getElementById('outputDiv').innerText = 'Error: ' + e;
+        //     }
+        // }
+
         function generateCode() {
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             document.getElementById('codeDiv').innerText = code;
@@ -66,6 +89,7 @@
                 document.getElementById('outputDiv').innerText = 'Error: ' + e;
             }
         }
+
 
         function saveBlocks() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
