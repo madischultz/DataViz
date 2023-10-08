@@ -35,6 +35,7 @@
     </div>
     <div class="row button-row">
         <button onclick="generatePythonCode()">Generate Python</button>
+        <button onclick="savePythonCode()">Save Python</button>
         <button onclick="runPythonCode()">Run Python</button> <!-- This would only be illustrative -->
         <button onclick="generateCode()">Generate JavaScript</button>
         <button onclick="runCode()">Run JavaScript</button>
@@ -57,6 +58,15 @@
             document.getElementById('codeDiv').innerText = code;
         }
 
+        function savePythonCode() {
+            var code = Blockly.Python.workspaceToCode(workspace);
+            var blob = new Blob([code], {type: 'text/plain'});
+            var a = document.createElement('a');
+            a.download = 'generated_code.py';
+            a.href = URL.createObjectURL(blob);
+            a.click();
+        }
+        
         function runPythonCode() {
             // Running Python code in the browser is not straightforward.
             // You might want to send the generated code to a Python backend to run it.
