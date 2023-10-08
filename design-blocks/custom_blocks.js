@@ -133,7 +133,7 @@ Blockly.Blocks['plot_data'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["bar plot","OPTIONNAME"], ["line plot","OPTIONNAME"], ["box plot","OPTIONNAME"]]), "NAME");
+        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_line"], ["line plot", "line_plot_id"], ["box plot", "geom_boxplot"]]), "NAME");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -185,7 +185,7 @@ Blockly.Blocks['dataframe'] = {
 Blockly.Python['import'] = function(block) {
   var text_inputdata = block.getFieldValue('input_data');
   // Assemble Python code to import data into a Pandas DataFrame
-  var code = `pd.read_csv('${text_inputdata}')\n`;
+  var code = `pd.read_csv('${text_inputdata}')`;
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
 
