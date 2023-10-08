@@ -97,6 +97,31 @@ Blockly.Blocks['math_arithmetic'] = {
   }
 };
 
+// Blockly.Blocks['plot_data'] = {
+//   init: function() {
+//     this.appendDummyInput()
+//         .appendField("x = ");
+//     this.appendDummyInput()
+//         .appendField(new Blockly.FieldTextInput("\"K\""), "x");
+//     this.appendDummyInput()
+//         .appendField(",   y = ");
+//     this.appendDummyInput()
+//         .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
+//     this.appendDummyInput()
+//         .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_line"], ["line plot", "line_plot_id"], ["box plot", "geom_boxplot"]]), "NAME");
+//     this.appendDummyInput()
+//         .appendField("Dataset: ");
+//     this.appendValueInput("data")
+//         .setCheck(null);
+//     this.setInputsInline(true);
+//     this.setPreviousStatement(true, null);
+//     this.setNextStatement(true, null);
+//     this.setColour(230);
+//  this.setTooltip("");
+//  this.setHelpUrl("");
+//   }
+// };
+
 Blockly.Blocks['plot_data'] = {
   init: function() {
     this.appendDummyInput()
@@ -108,11 +133,7 @@ Blockly.Blocks['plot_data'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_line"], ["line plot", "line_plot_id"], ["box plot", "geom_boxplot"]]), "NAME");
-    this.appendDummyInput()
-        .appendField("Dataset: ");
-    this.appendValueInput("data")
-        .setCheck(null);
+        .appendField(new Blockly.FieldDropdown([["bar plot","OPTIONNAME"], ["line plot","OPTIONNAME"], ["box plot","OPTIONNAME"]]), "NAME");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -139,13 +160,42 @@ Blockly.Blocks['import'] = {
   }
 };
 
+Blockly.Blocks['dataframe'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dataframe");
+    this.appendValueInput("NAME")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+// Blockly.Python['import'] = function(block) {
+//   var text_inputdata = block.getFieldValue('input_data');
+//   // Assemble Python code to import data into a Pandas DataFrame
+//   var code = `import pandas as pd\n`;
+//   code += `df = pd.read_csv('${text_inputdata}')\n`;
+//   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+// };
+
 Blockly.Python['import'] = function(block) {
   var text_inputdata = block.getFieldValue('input_data');
   // Assemble Python code to import data into a Pandas DataFrame
-  var code = `import pandas as pd\n`;
-  code += `df = pd.read_csv('${text_inputdata}')\n`;
+  var code = `pd.read_csv('${text_inputdata}')\n`;
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
+
+Blockly.Python['dataframe'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  // Assemble Python code to import data into a Pandas DataFrame
+  var code = `import pandas as pd\n`;
+  code += `df = ${value_name}\n`;
+  return code
+}
 
 Blockly.Python['plot_data'] = function(block) {
   var x_title = block.getFieldValue('x');
