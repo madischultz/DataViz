@@ -127,13 +127,13 @@ Blockly.Blocks['plot_one'] = {
     this.appendDummyInput()
         .appendField("x = ");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput("\"K\""), "x");
+        .appendField(new Blockly.FieldTextInput("\"App Session Platform\""), "x");
+    // this.appendDummyInput()
+    //     .appendField(",   y = ");
+    // this.appendDummyInput()
+    //     .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
     this.appendDummyInput()
-        .appendField(",   y = ");
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_bar"], ["density plot", "density_plot_id"], ["dot plot", "geom_dotplot"]]), "NAME");
+        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_bar"], ["density plot", "geom_density"], ["dot plot", "geom_dotplot"]]), "NAME");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -211,7 +211,7 @@ Blockly.Python['plot_one'] = function(block) {
     plot_type = "geom_dotplot";
   }
 
-  var code = `(ggplot(df, aes(x = ${x_title})) + ${plot_type}(aes(fill = "mfr")) + theme_bw())\n`;
+  var code = `plt = (ggplot(df, aes(x = ${x_title})) + ${plot_type}() + theme_bw())\n`;
   console.log(code);
   return code
 };
@@ -242,6 +242,11 @@ Blockly.Blocks['export'] = {
  this.setTooltip("");
  this.setHelpUrl("");
   }
+};
+
+Blockly.Python['export'] = function(block) {
+  var code = `plt.save('plot.png')\n`;
+  return code
 };
 
 Blockly.Blocks['remove_null'] = {
