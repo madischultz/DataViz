@@ -1,5 +1,5 @@
 # DataViz
-## Website: https://madischultz.github.io/DataViz/design-blocks/
+## Website: https://madischultz.github.io/DataViz/milestone1/
 
 Group members: Madi Schultz, Austin Simpson, Diego Lopez Ramos, Tyler Kay
 
