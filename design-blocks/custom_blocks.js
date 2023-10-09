@@ -122,7 +122,7 @@ Blockly.Blocks['math_arithmetic'] = {
 //   }
 // };
 
-Blockly.Blocks['plot_data'] = {
+Blockly.Blocks['plot_one'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("x = ");
@@ -133,7 +133,7 @@ Blockly.Blocks['plot_data'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_line"], ["line plot", "line_plot_id"], ["box plot", "geom_boxplot"]]), "NAME");
+        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_bar"], ["density plot", "density_plot_id"], ["dot plot", "geom_dotplot"]]), "NAME");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -193,21 +193,22 @@ Blockly.Python['dataframe'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   // Assemble Python code to import data into a Pandas DataFrame
   var code = `import pandas as pd\n`;
+  code += `from plotnine import *\n\n`;
   code += `df = ${value_name}\n`;
   return code
 }
 
-Blockly.Python['plot_data'] = function(block) {
+Blockly.Python['plot_one'] = function(block) {
   var x_title = block.getFieldValue('x');
   var y_title = block.getFieldValue('y');
   var plot_type = block.getFieldValue('NAME');
   
   if (plot_type == "bar plot") {
     plot_type = "geom_bar";
-  } else if (plot_type == "line plot") {
-    plot_type = "geom_line";
-  } else if (plot_type == "box plot") {
-    plot_type = "geom_boxplot";
+  } else if (plot_type == "density plot") {
+    plot_type = "geom_density";
+  } else if (plot_type == "dot plot") {
+    plot_type = "geom_dotplot";
   }
 
   var code = `(ggplot(df, aes(x = ${x_title})) + ${plot_type}(aes(fill = "mfr")) + theme_bw())\n`;
