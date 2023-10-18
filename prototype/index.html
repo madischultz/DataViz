@@ -19,17 +19,18 @@
     <div class="row">
         <div id="blocklyDiv" class="full-width"></div>
         <xml id="toolbox" style="display: none">
-            <!-- <block type="abs"></block>
-            <block type="app"></block>
-            <block type="var"></block>
-            <block type="math_number"></block>
-            <block type="math_arithmetic"></block> -->
-            <block type="dataframe"></block>
-            <block type="plot_one"></block>
-            <block type="import"></block>
-            <block type="export"></block>
-            <block type="remove_null"></block>
-            <!-- <block type="combine_data"></block> -->
+            <category name="Data" colour="#995ba5">
+                <block type="dataframe"></block>
+                <block type="import"></block>
+                <block type="export"></block>
+                <block type="remove_null"></block>
+            </category>
+
+            <category name="Plots" colour="green">
+                <block type="plot_one"></block>
+            </category>
+            <category name="Visuals (cosmetics, themes)" colour="blue"></category>
+            <category name="Models" colour="red"></category>
             
         </xml>
     </div>
