@@ -143,6 +143,27 @@ Blockly.Blocks['plot_one'] = {
   }
 };
 
+lockly.Blocks['plot_2d'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("2D Plot: ");
+    this.appendDummyInput()
+        .appendField("x:  ")
+        .appendField(new Blockly.FieldTextInput("xValue"), "x")
+        .appendField("‎   y:  ")
+        .appendField(new Blockly.FieldTextInput("yValue"), "y");
+    this.appendDummyInput()
+        .appendField("plot type:  ")
+        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point"], ["Line Plot","geom_line"], ["Histogram","geom_histogram"]]), "Plot_Type");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks['import'] = {
   init: function() {
     this.appendDummyInput()
@@ -212,6 +233,16 @@ Blockly.Python['plot_one'] = function(block) {
   }
 
   var code = `plt = (ggplot(df, aes(x = ${x_title})) + ${plot_type}() + theme_bw())\n`;
+  console.log(code);
+  return code
+};
+
+Blockly.Python['plot_2d'] = function(block) {
+  var x_title = block.getFieldValue('x');
+  var y_title = block.getFieldValue('y');
+  var plot_type = block.getFieldValue('Plot_Type');
+
+  var code = `plt = (ggplot(df, aes(x = ${x_title}, y = ${y_title})) + ${plot_type}() + theme_bw())\n`;
   console.log(code);
   return code
 };
