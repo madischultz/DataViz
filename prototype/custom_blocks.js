@@ -143,7 +143,7 @@ Blockly.Blocks['plot_one'] = {
   }
 };
 
-lockly.Blocks['plot_2d'] = {
+Blockly.Blocks['plot_2d'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("2D Plot: ");
@@ -195,6 +195,21 @@ Blockly.Blocks['dataframe'] = {
   }
 };
 
+Blockly.Blocks['themes'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Theme: ")
+        .appendField(new Blockly.FieldDropdown([["gray","theme_gray"], ["minimal","theme_minimal"], ["classic","theme_classic"], ["black and white","theme_bw"]]), "theme");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+
 // Blockly.Python['import'] = function(block) {
 //   var text_inputdata = block.getFieldValue('input_data');
 //   // Assemble Python code to import data into a Pandas DataFrame
@@ -232,7 +247,7 @@ Blockly.Python['plot_one'] = function(block) {
     plot_type = "geom_dotplot";
   }
 
-  var code = `plt = (ggplot(df, aes(x = ${x_title})) + ${plot_type}() + theme_bw())\n`;
+  var code = `plt = (ggplot(df, aes(x = '${x_title}')) + ${plot_type}())\n`;
   console.log(code);
   return code
 };
@@ -242,11 +257,18 @@ Blockly.Python['plot_2d'] = function(block) {
   var y_title = block.getFieldValue('y');
   var plot_type = block.getFieldValue('Plot_Type');
 
-  var code = `plt = (ggplot(df, aes(x = ${x_title}, y = ${y_title})) + ${plot_type}() + theme_bw())\n`;
+  var code = `plt = (ggplot(df, aes(x = '${x_title}', y = '${y_title}')) + ${plot_type}())\n`;
   console.log(code);
   return code
 };
 
+Blockly.Python['themes'] = function(block) {
+  var theme = block.getFieldValue('theme');
+
+  var code = ` + theme_bw())\n`;
+  console.log(code);
+  return code
+};
 
 Blockly.Python['remove_null'] = function(block) {
   var code = `df = df.dropna()\n`;
