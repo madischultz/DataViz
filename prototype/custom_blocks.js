@@ -143,7 +143,7 @@ Blockly.Blocks['plot_one'] = {
   }
 };
 
-lockly.Blocks['plot_2d'] = {
+Blockly.Blocks['plot_2d'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("2D Plot: ");
