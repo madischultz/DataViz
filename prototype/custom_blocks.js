@@ -247,7 +247,7 @@ Blockly.Python['plot_one'] = function(block) {
     plot_type = "geom_dotplot";
   }
 
-  var code = `plt = (ggplot(df, aes(x = '${x_title}')) + ${plot_type}())\n`;
+  var code = `plt = (ggplot(df, aes(x = '${x_title}')) + ${plot_type}()\n`;
   console.log(code);
   return code
 };
@@ -257,7 +257,7 @@ Blockly.Python['plot_2d'] = function(block) {
   var y_title = block.getFieldValue('y');
   var plot_type = block.getFieldValue('Plot_Type');
 
-  var code = `plt = (ggplot(df, aes(x = '${x_title}', y = '${y_title}')) + ${plot_type}())\n`;
+  var code = `plt = (ggplot(df, aes(x = '${x_title}', y = '${y_title}')) + ${plot_type}()\n`;
   console.log(code);
   return code
 };
@@ -265,7 +265,7 @@ Blockly.Python['plot_2d'] = function(block) {
 Blockly.Python['themes'] = function(block) {
   var theme = block.getFieldValue('theme');
 
-  var code = ` + theme_bw())\n`;
+  var code = ` + ${theme}())\n`;
   console.log(code);
   return code
 };
@@ -332,3 +332,21 @@ Blockly.Blocks['combine_data'] = {
  this.setHelpUrl("");
   }
 };
+
+// Blockly.Blocks['plot_group'] = {
+//   init: function() {
+//     this.appendDummyInput()
+//         .appendField("Plot");
+//     this.appendStatementInput("group")
+//         .setCheck(null);
+//     this.setInputsInline(false);
+//     this.setColour(230);
+//  this.setTooltip("");
+//  this.setHelpUrl("");
+//   }
+// };
+
+// Blockly.Python['plot_groups'] = function(block) {
+//   var code = `)\n`;
+//   return code
+// };
