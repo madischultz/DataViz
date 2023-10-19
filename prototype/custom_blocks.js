@@ -153,8 +153,12 @@ Blockly.Blocks['plot_2d'] = {
         .appendField("‎   y:  ")
         .appendField(new Blockly.FieldTextInput("energy"), "y");
     this.appendDummyInput()
-        .appendField("plot type:  ")
-        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point()"], ["Line Plot","geom_line()"], ["Histogram","geom_histogram()"], ["regression", "stat_smooth(method = 'lm')"]]), "Plot_Type");
+        .appendField("Plot Type:  ")
+        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point("], ["Line Plot","geom_line("], ["Histogram","geom_histogram("], ["Regression", "stat_smooth(method = 'lm',"]]), "Plot_Type");
+    this.appendDummyInput()
+        .appendField("Plot Color:  ")
+        .appendField(new Blockly.FieldDropdown([["Black",'color = "black"'], ["Red",'color = "red"'], ["Blue", 'color = "blue"'], ["Green", 'color = "green"']]), "myColor");
+
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -256,8 +260,9 @@ Blockly.Python['plot_2d'] = function(block) {
   var x_title = block.getFieldValue('x');
   var y_title = block.getFieldValue('y');
   var plot_type = block.getFieldValue('Plot_Type');
+  var color = block.getFieldValue('myColor');
 
-  var code = `plt = (ggplot(df, aes(x = '${x_title}', y = '${y_title}')) + ${plot_type}\n`;
+  var code = `plt = (ggplot(df, aes(x = '${x_title}', y = '${y_title}')) + ${plot_type} ${color} )\n`;
   console.log(code);
   return code
 };
