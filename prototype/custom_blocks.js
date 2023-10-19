@@ -149,9 +149,9 @@ Blockly.Blocks['plot_2d'] = {
         .appendField("2D Plot: ");
     this.appendDummyInput()
         .appendField("x:  ")
-        .appendField(new Blockly.FieldTextInput("SOP"), "x")
+        .appendField(new Blockly.FieldTextInput("danceability"), "x")
         .appendField("‎   y:  ")
-        .appendField(new Blockly.FieldTextInput("CGPA"), "y");
+        .appendField(new Blockly.FieldTextInput("energy"), "y");
     this.appendDummyInput()
         .appendField("plot type:  ")
         .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point"], ["Line Plot","geom_line"], ["Histogram","geom_histogram"]]), "Plot_Type");
@@ -168,7 +168,7 @@ Blockly.Blocks['import'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Link to input data: ")
-        .appendField(new Blockly.FieldTextInput("https://raw.githubusercontent.com/cmparlettpelleriti/CPSC392ParlettPelleriti/master/Data/GradAdmissions.csv"), "input_data");
+        .appendField(new Blockly.FieldTextInput("https://raw.githubusercontent.com/cmparlettpelleriti/CPSC392ParlettPelleriti/master/Data/Music_data.csv"), "input_data");
     this.appendDummyInput();
     this.appendDummyInput();
     this.appendDummyInput();
