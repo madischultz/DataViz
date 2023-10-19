@@ -127,7 +127,7 @@ Blockly.Blocks['plot_one'] = {
     this.appendDummyInput()
         .appendField("x = ");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput("CGPA"), "x");
+        .appendField(new Blockly.FieldTextInput("mode"), "x");
     // this.appendDummyInput()
     //     .appendField(",   y = ");
     // this.appendDummyInput()
