@@ -124,10 +124,10 @@ Blockly.Blocks['math_arithmetic'] = {
 
 Blockly.Blocks['plot_one'] = {
   init: function() {
-    this.appendDummyInput()
-        .appendField("x = ");
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput("CGPA"), "x");
+    // this.appendDummyInput()
+    //     .appendField("x = ");
+    // this.appendDummyInput()
+    //     .appendField(new Blockly.FieldTextInput("mode"), "x");
     // this.appendDummyInput()
     //     .appendField(",   y = ");
     // this.appendDummyInput()
@@ -153,8 +153,12 @@ Blockly.Blocks['plot_2d'] = {
     //     .appendField("‎   y:  ")
     //     .appendField(new Blockly.FieldTextInput("energy"), "y");
     this.appendDummyInput()
-        .appendField("plot type:  ")
-        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point()"], ["Line Plot","geom_line()"], ["Histogram","geom_histogram()"], ["regression", "stat_smooth(method = 'lm')"]]), "Plot_Type");
+        .appendField("Plot Type:  ")
+        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point("], ["Line Plot","geom_line("], ["Histogram","geom_histogram("], ["Regression", "stat_smooth(method = 'lm',"]]), "Plot_Type");
+    this.appendDummyInput()
+        .appendField("Plot Color:  ")
+        .appendField(new Blockly.FieldDropdown([["Black",'color = "black"'], ["Red",'color = "red"'], ["Blue", 'color = "blue"'], ["Green", 'color = "green"']]), "myColor");
+
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -188,7 +192,8 @@ Blockly.Blocks['dataframe'] = {
     this.appendValueInput("NAME")
         .setCheck(null);
     this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
+    this.setPreviousStatement(true, null)
+    this.setNextStatement(true, null);
     this.setColour(230);
  this.setTooltip("");
  this.setHelpUrl("");
@@ -202,6 +207,7 @@ Blockly.Blocks['themes'] = {
         .appendField(new Blockly.FieldDropdown([["gray","theme_gray"], ["minimal","theme_minimal"], ["classic","theme_classic"], ["black and white","theme_bw"]]), "theme");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(230);
  this.setTooltip("");
  this.setHelpUrl("");
@@ -227,14 +233,17 @@ Blockly.Python['import'] = function(block) {
 Blockly.Python['dataframe'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   // Assemble Python code to import data into a Pandas DataFrame
+  // var code = `import pandas as pd\n`;
+  // code += `from plotnine import *\n\n`;
+  // code += `df = ${value_name}\n`;
+  var code = `${value_name}\n`;
 
-  code += `df = ${value_name}\n`;
   return code
 }
 
 Blockly.Python['plot_one'] = function(block) {
-  // var x_title = block.getFieldValue('x');
-  // var y_title = block.getFieldValue('y');
+  var x_title = block.getFieldValue('x');
+  var y_title = block.getFieldValue('y');
   var plot_type = block.getFieldValue('NAME');
   
   // if (plot_type == "bar plot") {
@@ -245,17 +254,18 @@ Blockly.Python['plot_one'] = function(block) {
   //   plot_type = "geom_dotplot";
   // }
 
-  var code = ` + ${plot_type}()\n`;
+  var code = `+ ${plot_type}()\n`;
   console.log(code);
   return code
 };
 
 Blockly.Python['plot_2d'] = function(block) {
-  // var x_title = block.getFieldValue('x');
-  // var y_title = block.getFieldValue('y');
+  var x_title = block.getFieldValue('x');
+  var y_title = block.getFieldValue('y');
   var plot_type = block.getFieldValue('Plot_Type');
+  var color = block.getFieldValue('myColor');
 
-  var code = ` + ${plot_type}\n`;
+  var code = `+ ${plot_type} ${color} )\n`;
   console.log(code);
   return code
 };
@@ -263,7 +273,7 @@ Blockly.Python['plot_2d'] = function(block) {
 Blockly.Python['themes'] = function(block) {
   var theme = block.getFieldValue('theme');
 
-  var code = ` + ${theme}())\n`;
+  var code = `+ ${theme}()\n`;
   console.log(code);
   return code
 };
@@ -331,6 +341,7 @@ Blockly.Blocks['combine_data'] = {
   }
 };
 
+
 Blockly.Blocks['canvas'] = {
   init: function() {
     this.appendDummyInput()
@@ -359,16 +370,19 @@ Blockly.Python['canvas'] = function(block) {
   x_title = block.getFieldValue('x');
   y_title = block.getFieldValue('y');
   var input_data = Blockly.Python.statementToCode(block, 'inData');
-  // var canvas_data = Blockly.Python.statementToCode(block, 'myCanvas');
+  var canvas_data = Blockly.Python.statementToCode(block, 'myCanvas');
 
   var code = `import pandas as pd\n`;
   code += `from plotnine import *\n\n`; 
   
+
+  code += 'df = ';
+  
   code += input_data;
 
-  code += `plt = (ggplot(df, aes(x = '${x_title}', y = '${y_title}'))`;
+  code += `plt = (ggplot(df, aes(x = '${x_title}', y = '${y_title}'))\n`;
   
-  // code += canvas_data;
+  code += canvas_data;
 
   code += `)\n`;
   return code
