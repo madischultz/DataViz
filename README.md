@@ -2,7 +2,7 @@ Blockly demo
 
 - Access our presentation: https://docs.google.com/presentation/d/1E4X336iszAeC5SX_QoV9ttY3jbIWKszzFDEKNGJQEKY/edit?usp=sharing 
 
-- Access our blockly at https://madischultz.github.io/DataViz/prototype/ through github pages
+- Access our blockly at https://madischultz.github.io/DataViz/src/ through github pages
 
 Manipulate Blocks
 
