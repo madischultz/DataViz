@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>A Blockly Lambda Calculus</title>
+    <title>A Blockly Data Visualization</title>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <script src="https://unpkg.com/blockly/python_compressed"></script>
     <script src="custom_blocks.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
     <div>
         <p>
             <a href="https://github.com/madischultz/DataViz/blob/main/prototype/custom_blocks.js" target="_blank">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" width="20" height="20">
-            View Source on GitHub
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo"
+                    width="20" height="20">
+                View Source on GitHub
             </a>
         </p>
     </div>
@@ -27,6 +30,7 @@
             </category>
 
             <category name="Plots" colour="green">
+                <block type="canvas"></block>
                 <block type="plot_one"></block>
                 <block type="plot_2d"></block>
             </category>
@@ -34,22 +38,29 @@
                 <block type="themes"></block>
             </category>
             <category name="Models" colour="red"></category>
-            
+
         </xml>
     </div>
     <div class="row button-row">
         <button onclick="generatePythonCode()">Generate Python</button>
         <button onclick="savePythonCode()">Save Python</button>
-        <button onclick="runPythonCode()">Run Python</button> <!-- This would only be illustrative -->
+        <button onclick="runPythonCode()">Run Python</button> <!-- This button should display a plot -->
         <button onclick="generateCode()">Generate JavaScript</button>
         <button onclick="runCode()">Run JavaScript</button>
         <button onclick="saveBlocks()">Save Blocks</button>
         <button onclick="loadBlocks()">Load Blocks</button>
+        <button id="showPlotBtn">Show Plot</button> <!-- New Button -->
         <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
     </div>
     <div class="row">
         <div id="codeDiv" class="half-width"></div>
         <div id="outputDiv" class="half-width"></div>
+    </div>
+    <div id="plotModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="plot.png" alt="ggplot Plot">
+        </div>
     </div>
     <script>
         var workspace = Blockly.inject('blocklyDiv', {
@@ -64,25 +75,42 @@
 
         function savePythonCode() {
             var code = Blockly.Python.workspaceToCode(workspace);
-            var blob = new Blob([code], {type: 'text/plain'});
+            var blob = new Blob([code], { type: 'text/plain' });
             var a = document.createElement('a');
             a.download = 'generated_code.py';
             a.href = URL.createObjectURL(blob);
             a.click();
         }
-        
-        function runPythonCode() {
-            // Running Python code in the browser is not straightforward.
-            // You might want to send the generated code to a Python backend to run it.
-            // alert('Running Python code in the browser is not straightforward. You might want to send the generated code to a Python backend.');
 
-            var pythonCode = python.pythonGenerator.workspaceToCode(workspace);
-            try {
-                var output = eval(pythonCode);
-                document.getElementById('outputDiv').innerText = output;
-            } catch (e) {
-                document.getElementById('outputDiv').innerText = 'Error: ' + e;
-            }
+        function runPythonCode() {
+        //     var pythonCode = Blockly.Python.workspaceToCode(workspace);
+
+        //     // Sending a POST request to the Flask server with the Python code
+        //     fetch('https://austintsimpson4.pythonanywhere.com/execute-code', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ code: pythonCode })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             // Displaying the result from the Flask server in outputDiv
+        //             document.getElementById('outputDiv').innerText = data.result;
+        //         })
+        //         .catch(error => {
+        //             // Handling errors
+        //             document.getElementById('outputDiv').innerText = 'Error: ' + error;
+        //         });
+        // }
+
+        var pythonCode = python.pythonGenerator.workspaceToCode(workspace);
+        try {
+            var output = eval(pythonCode);
+            document.getElementById('outputDiv').innerText = output;
+        } catch (e) {
+            document.getElementById('outputDiv').innerText = 'Error: ' + e;
+        }
 
 
         }
@@ -117,7 +145,7 @@
         function saveBlocks() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
             var xmlText = Blockly.Xml.domToPrettyText(xml);
-            var blob = new Blob([xmlText], {type: 'text/xml'});
+            var blob = new Blob([xmlText], { type: 'text/xml' });
             var a = document.createElement('a');
             a.download = 'blocks.xml';
             a.href = URL.createObjectURL(blob);
@@ -131,13 +159,20 @@
         function loadBlocksFile(event) {
             var file = event.target.files[0];
             var reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 var xml = Blockly.utils.xml.textToDom(e.target.result);
                 Blockly.Xml.appendDomToWorkspace(xml, workspace);
             };
             reader.readAsText(file);
         }
+        document.getElementById("showPlotBtn").addEventListener("click", function () {
+            document.getElementById("plotModal").style.display = "block";
+        });
 
+        document.getElementsByClassName("close")[0].addEventListener("click", function () {
+            document.getElementById("plotModal").style.display = "none";
+        });
     </script>
 </body>
+
 </html>
