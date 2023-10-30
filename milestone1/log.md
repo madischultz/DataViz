@@ -1,1 +1,0 @@
-Each week we discuss our availability and decide on a time that works for as many of us as possible. If meeting online we use Live Share to work on the code simultaneously. Some weeks we will partner up to work on half of the task, while the other pair finishes it up afterward. We are working to set a designated time that fits all of our schedules weekly. 
