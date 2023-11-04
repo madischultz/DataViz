@@ -150,7 +150,7 @@ Blockly.Blocks['plot_2d'] = {
     // this.appendDummyInput()
     //     .appendField("x:  ")
     //     .appendField(new Blockly.FieldTextInput("danceability"), "x")
-    //     .appendField("‎   y:  ")
+    //     .appendField("   y:  ")
     //     .appendField(new Blockly.FieldTextInput("energy"), "y");
     this.appendDummyInput()
         .appendField("Plot Type:  ")
@@ -306,7 +306,9 @@ Blockly.Blocks['export'] = {
 };
 
 Blockly.Python['export'] = function(block) {
-  var code = `plt.save('plot.png')\n`;
+  // Because save should be the last block, there is a closing parenthesis before plt.save
+  // The new line just ensures that the save function happens on a new line, instead of being part of the plt definition
+  var code = `)\n(plt.save('plot.png')\n`;
   return code
 };
 
