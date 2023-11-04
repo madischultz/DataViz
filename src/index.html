@@ -45,8 +45,8 @@
         <button onclick="generatePythonCode()">Generate Python</button>
         <button onclick="savePythonCode()">Save Python</button>
         <button onclick="runPythonCode()">Run Python</button> <!-- This button should display a plot -->
-        <button onclick="generateCode()">Generate JavaScript</button>
-        <button onclick="runCode()">Run JavaScript</button>
+        <!-- <button onclick="generateCode()">Generate JavaScript</button>
+        <button onclick="runCode()">Run JavaScript</button> -->
         <button onclick="saveBlocks()">Save Blocks</button>
         <button onclick="loadBlocks()">Load Blocks</button>
         <button id="showPlotBtn">Show Plot</button> <!-- New Button -->
@@ -126,20 +126,20 @@
         //     }
         // }
 
-        function generateCode() {
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
-            document.getElementById('codeDiv').innerText = code;
-        }
+        // function generateCode() {
+        //     var code = Blockly.JavaScript.workspaceToCode(workspace);
+        //     document.getElementById('codeDiv').innerText = code;
+        // }
 
-        function runCode() {
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
-            try {
-                var output = eval(code);
-                document.getElementById('outputDiv').innerText = output;
-            } catch (e) {
-                document.getElementById('outputDiv').innerText = 'Error: ' + e;
-            }
-        }
+        // function runCode() {
+        //     var code = Blockly.JavaScript.workspaceToCode(workspace);
+        //     try {
+        //         var output = eval(code);
+        //         document.getElementById('outputDiv').innerText = output;
+        //     } catch (e) {
+        //         document.getElementById('outputDiv').innerText = 'Error: ' + e;
+        //     }
+        // }
 
 
         function saveBlocks() {
