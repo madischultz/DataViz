@@ -27,17 +27,21 @@ html {
 
 .half-width {
     width: 49%;
-    height: 200px;
+    height: calc(100% - 20px);
     border: 1px solid black;
     padding: 10px;
-    overflow: auto;
+
+    white-space: pre;
+    overflow: auto; /* Add a scrollbar when necessary */
 }
 
-.button-row {
-    height: 50px;
-    /* or whatever height you want */
-    justify-content: flex-start;
+.half-width, .full-width {
+    -webkit-user-select: text; /* Chrome, Safari, and Opera */
+    -moz-user-select: text;    /* Firefox */
+    -ms-user-select: text;     /* Internet Explorer/Edge */
+    user-select: text;         /* Non-prefixed version, currently supported by Chrome, Edge, Opera, and Firefox */
 }
+
 
 .modal {
     display: none;
@@ -58,4 +62,10 @@ html {
 
 .close {
     cursor: pointer;
+}
+
+.button-row {
+    height: 45px;
+    /* or whatever height you want */
+    justify-content: flex-start;
 }

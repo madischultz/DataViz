@@ -122,51 +122,7 @@ Blockly.Blocks['math_arithmetic'] = {
 //   }
 // };
 
-Blockly.Blocks['plot_one'] = {
-  init: function() {
-    // this.appendDummyInput()
-    //     .appendField("x = ");
-    // this.appendDummyInput()
-    //     .appendField(new Blockly.FieldTextInput("mode"), "x");
-    // this.appendDummyInput()
-    //     .appendField(",   y = ");
-    // this.appendDummyInput()
-    //     .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_bar"], ["density plot", "geom_density"], ["dot plot", "geom_dotplot"]]), "NAME");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(260);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
 
-Blockly.Blocks['plot_2d'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("2D Plot: ");
-    // this.appendDummyInput()
-    //     .appendField("x:  ")
-    //     .appendField(new Blockly.FieldTextInput("danceability"), "x")
-    //     .appendField("‎   y:  ")
-    //     .appendField(new Blockly.FieldTextInput("energy"), "y");
-    this.appendDummyInput()
-        .appendField("Plot Type:  ")
-        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point("], ["Line Plot","geom_line("], ["Histogram","geom_histogram("], ["Regression", "stat_smooth(method = 'lm',"]]), "Plot_Type");
-    this.appendDummyInput()
-        .appendField("Plot Color:  ")
-        .appendField(new Blockly.FieldDropdown([["Black",'color = "black"'], ["Red",'color = "red"'], ["Blue", 'color = "blue"'], ["Green", 'color = "green"']]), "myColor");
-
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(260);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
 
 Blockly.Blocks['import'] = {
   init: function() {
@@ -185,34 +141,6 @@ Blockly.Blocks['import'] = {
   }
 };
 
-Blockly.Blocks['dataframe'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Dataframe");
-    this.appendValueInput("NAME")
-        .setCheck(null);
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null)
-    this.setNextStatement(true, null);
-    this.setColour(160);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['themes'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Theme: ")
-        .appendField(new Blockly.FieldDropdown([["gray","theme_gray"], ["minimal","theme_minimal"], ["classic","theme_classic"], ["black and white","theme_bw"]]), "theme");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(260);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
 
 
 // Blockly.Python['import'] = function(block) {
@@ -230,33 +158,89 @@ Blockly.Python['import'] = function(block) {
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
 
+// dataframe blocks
+Blockly.Blocks['dataframe'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dataframe");
+    this.appendValueInput("NAME")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null)
+    this.setNextStatement(true, null);
+    this.setColour(160);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
 Blockly.Python['dataframe'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  // Assemble Python code to import data into a Pandas DataFrame
-  // var code = `import pandas as pd\n`;
-  // code += `from plotnine import *\n\n`;
-  // code += `df = ${value_name}\n`;
-  var code = `${value_name}\n`;
-
-  return code
+  var code = `# new_df\n`;
+  code += `same_df = ${value_name}`;
+  return code + '\n';
 }
+
+Blockly.Blocks['plot_one'] = {
+  init: function() {
+    this.appendEndRowInput()
+        .appendField("1D Plot: ");
+    this.appendDummyInput()
+        .appendField("x: ");
+    this.appendEndRowInput()
+        .appendField(new Blockly.FieldTextInput("mode"), "x");
+    this.appendEndRowInput()
+        .appendField("Plot Type:  ")
+        .appendField(new Blockly.FieldDropdown([["bar plot",  "geom_bar("], ["density plot", "geom_density("], ["dot plot", "geom_dotplot("]]), "plotType");
+    // this.appendDummyInput()
+    //     .appendField(",   y = ");
+    // this.appendDummyInput()
+    //     .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
+    this.appendEndRowInput()
+        .appendField("Plot Color:  ")
+        .appendField(new Blockly.FieldDropdown([["Black",'color = "black"'], ["Red",'color = "red"'], ["Blue", 'color = "blue"'], ["Green", 'color = "green"']]), "myColor");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(260);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
 
 Blockly.Python['plot_one'] = function(block) {
   var x_title = block.getFieldValue('x');
-  var y_title = block.getFieldValue('y');
-  var plot_type = block.getFieldValue('NAME');
-  
-  // if (plot_type == "bar plot") {
-  //   plot_type = "geom_bar";
-  // } else if (plot_type == "density plot") {
-  //   plot_type = "geom_density";
-  // } else if (plot_type == "dot plot") {
-  //   plot_type = "geom_dotplot";
-  // }
+  var plot_type = block.getFieldValue('plotType');
+  var color = block.getFieldValue('myColor');
 
-  var code = `+ ${plot_type}()\n`;
-  console.log(code);
+  var code = `${plot_type}same_df, aes(x='${x_title}'), ${color})`;
   return code
+};
+
+// 2D Plots
+Blockly.Blocks['plot_2d'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("2D Plot: ");
+    this.appendDummyInput()
+        .appendField("x:  ")
+        .appendField(new Blockly.FieldTextInput("danceability"), "x")
+        .appendField("‎   y:  ")
+        .appendField(new Blockly.FieldTextInput("energy"), "y");
+    this.appendDummyInput()
+        .appendField("Plot Type:  ")
+        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point("], ["Line Plot","geom_line("], ["Histogram","geom_histogram("], ["Regression", "stat_smooth(method = 'lm',"]]), "Plot_Type");
+    this.appendDummyInput()
+        .appendField("Plot Color:  ")
+        .appendField(new Blockly.FieldDropdown([["Black",'color = "black"'], ["Red",'color = "red"'], ["Blue", 'color = "blue"'], ["Green", 'color = "green"']]), "myColor");
+
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(260);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
 };
 
 Blockly.Python['plot_2d'] = function(block) {
@@ -265,50 +249,15 @@ Blockly.Python['plot_2d'] = function(block) {
   var plot_type = block.getFieldValue('Plot_Type');
   var color = block.getFieldValue('myColor');
 
-  var code = `+ ${plot_type} ${color} )\n`;
-  console.log(code);
+  var code = `${plot_type}same_df, aes(x='${x_title}', y='${y_title}'), ${color})`;
   return code
 };
 
-Blockly.Python['themes'] = function(block) {
-  var theme = block.getFieldValue('theme');
 
-  var code = `+ ${theme}()\n`;
-  console.log(code);
-  return code
-};
-
+// dropNA
 Blockly.Python['remove_null'] = function(block) {
-  var code = `df = df.dropna()\n`;
-  return code
-};
-
-// Blockly.JavaScript.forBlock['import'] = function(block) {
-//   var text_inputdata = block.getFieldValue('inputData');
-//   // Assemble Python code to import data into a Pandas DataFrame
-//   // var code = `import pandas as pd\n`;
-//   // code += `df = pd.read_csv('${text_inputdata}')\n`;
-//   var code = `print('hello')\n)`
-//   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-// };
-
-
-// turn this into a checkbox
-Blockly.Blocks['export'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Export Plot");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, null);
-    this.setColour(0);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-Blockly.Python['export'] = function(block) {
-  var code = `plt.save('plot.png')\n`;
-  return code
+  var code = `same_df = same_df.dropna()`;
+  return code + '\n';
 };
 
 Blockly.Blocks['remove_null'] = {
@@ -351,12 +300,12 @@ Blockly.Blocks['plot'] = {
     this.appendStatementInput("inData")
         .setCheck(null);
     this.appendDummyInput()
-        .appendField("Plot:");
-    this.appendDummyInput()
-        .appendField("x:")
-        .appendField(new Blockly.FieldTextInput("energy"), "x")
-        .appendField(",   y: ")
-        .appendField(new Blockly.FieldTextInput("loudness"), "y");
+        .appendField("Plots:");
+    // this.appendDummyInput()
+    //     .appendField("x:")
+    //     .appendField(new Blockly.FieldTextInput("energy"), "x")
+    //     .appendField(",   y: ")
+    //     .appendField(new Blockly.FieldTextInput("loudness"), "y");
     this.appendStatementInput("myplot")
         .setCheck(null);
     this.setColour(230);
@@ -369,17 +318,17 @@ Blockly.Blocks['plot'] = {
 
 // 'plot' Python generator
 Blockly.Python['plot'] = function(block) {
-  var x_title = block.getFieldValue('x');
-  var y_title = block.getFieldValue('y');
-  var input_data = Blockly.Python.statementToCode(block, 'inData', Blockly.Python.ORDER_NONE).trim();
+  // var x_title = block.getFieldValue('x');
+  // var y_title = block.getFieldValue('y');
+  var input_data = Blockly.Python.statementToCode(block, 'inData', Blockly.Python.ORDER_NONE);
   var plot_data = Blockly.Python.statementToCode(block, 'myplot', Blockly.Python.ORDER_NONE).trim();
 
-  // Returning code for data loading and plot creation
-  var code = `{
-    'data': ${input_data},
-    'plot': (ggplot(${input_data}, aes(x='${x_title}', y='${y_title}')) ${plot_data})
-  }`;
-  return code;
+  var code = input_data;
+
+  // code += `plotName = (ggplot(same_df, aes(x='${x_title}', y='${y_title}')) ${plot_data})\n`;
+  code += `plotName += ${plot_data}\n`
+
+  return code + '\n';
 };
 
 // 'fullCanvas' block definition
@@ -388,6 +337,9 @@ Blockly.Blocks['fullCanvas'] = {
     this.appendDummyInput()
         .appendField("Canvas:")
         .appendField(new Blockly.FieldTextInput("canvasName"), "canvasName");
+    this.appendDummyInput()
+        .appendField("Theme: ")
+        .appendField(new Blockly.FieldDropdown([["gray","theme_gray"], ["minimal","theme_minimal"], ["classic","theme_classic"], ["black and white","theme_bw"]]), "theme");
     this.appendDummyInput()
         .appendField(new Blockly.FieldCheckbox("TRUE"), "savePlot")
         .appendField("Save Plot");
@@ -402,16 +354,44 @@ Blockly.Blocks['fullCanvas'] = {
 // 'fullCanvas' Python generator
 Blockly.Python['fullCanvas'] = function(block) {
   var canvasName = block.getFieldValue('canvasName');
+  var theme = block.getFieldValue('theme');
   var savePlot = block.getFieldValue('savePlot') == "TRUE";
-  var plotsCode = Blockly.Python.statementToCode(block, 'plots', Blockly.Python.ORDER_NONE).trim();
+  var plotsCode = Blockly.Python.statementToCode(block, 'plots', Blockly.Python.ORDER_NONE);
 
-  var code = `import pandas as pd\nfrom plotnine import *\n\n`;
+  // if canvasName isn't a valid python variable name, set it to 'myCanvas'
+  if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(canvasName)) {
+    canvasName = 'myCanvas';
+  }
 
-  code += `plot_infos = [${plotsCode}]\n`;
-  code += `for plot_info in plot_infos:\n`;
-  code += `    df = plot_info['data']\n`;
-  code += `    plot = plot_info['plot']\n`;
-  code += `    ggsave(plot, filename='${canvasName}_' + str(plot_infos.index(plot_info)) + '.png')\n`;
+  var code = `${canvasName} = ggplot()\n\n`
+
+  var count = 0;
+  for (var line of plotsCode.split('\n')) {
+    if (line.includes('new_df')) {
+      count++;
+      line = line.replaceAll('new_df', `df${count}`);
+    }
+    if (line.includes('same_df')) {
+      line = line.replaceAll('same_df', `df${count}`);
+    }
+    if (line.includes('plotName')) {
+      line = line.replaceAll('plotName', canvasName);
+    }
+    if (line.includes('df')) {
+      line = line.trim();
+    }
+    code += line + '\n';
+  }
+  
+  code = code.trimEnd();
+  code += '\n';
+  code += `${canvasName} += ${theme}()\n\n`
+
+  if (savePlot) {
+    code += `ggsave(${canvasName}, filename='${canvasName}.png')\n`;
+  }
 
   return code;
 };
+
+
