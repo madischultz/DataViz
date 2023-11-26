@@ -137,7 +137,7 @@ Blockly.Blocks['plot_one'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(260);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -162,7 +162,7 @@ Blockly.Blocks['plot_2d'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(260);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -179,7 +179,7 @@ Blockly.Blocks['import'] = {
     this.appendDummyInput();
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(120);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -194,7 +194,7 @@ Blockly.Blocks['dataframe'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null)
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(160);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -208,7 +208,7 @@ Blockly.Blocks['themes'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(260);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -293,13 +293,14 @@ Blockly.Python['remove_null'] = function(block) {
 // };
 
 
+// turn this into a checkbox
 Blockly.Blocks['export'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Export Plot");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
-    this.setColour(230);
+    this.setColour(0);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -317,7 +318,7 @@ Blockly.Blocks['remove_null'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(160);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -335,20 +336,20 @@ Blockly.Blocks['combine_data'] = {
         .setCheck(null);
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(0);
  this.setTooltip("");
  this.setHelpUrl("");
   }
 };
 
 
-Blockly.Blocks['canvas'] = {
+// 'plot' block definition
+Blockly.Blocks['plot'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Data: ");
     this.appendStatementInput("inData")
         .setCheck(null);
-    // this.appendEndRowInput();
     this.appendDummyInput()
         .appendField("Plot:");
     this.appendDummyInput()
@@ -356,35 +357,61 @@ Blockly.Blocks['canvas'] = {
         .appendField(new Blockly.FieldTextInput("energy"), "x")
         .appendField(",   y: ")
         .appendField(new Blockly.FieldTextInput("loudness"), "y");
-    this.appendStatementInput("myCanvas")
+    this.appendStatementInput("myplot")
         .setCheck(null);
     this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 
+// 'plot' Python generator
+Blockly.Python['plot'] = function(block) {
+  var x_title = block.getFieldValue('x');
+  var y_title = block.getFieldValue('y');
+  var input_data = Blockly.Python.statementToCode(block, 'inData', Blockly.Python.ORDER_NONE).trim();
+  var plot_data = Blockly.Python.statementToCode(block, 'myplot', Blockly.Python.ORDER_NONE).trim();
 
-
-Blockly.Python['canvas'] = function(block) {
-  x_title = block.getFieldValue('x');
-  y_title = block.getFieldValue('y');
-  var input_data = Blockly.Python.statementToCode(block, 'inData');
-  var canvas_data = Blockly.Python.statementToCode(block, 'myCanvas');
-
-  var code = `import pandas as pd\n`;
-  code += `from plotnine import *\n\n`; 
-  
-
-  code += 'df = ';
-  
-  code += input_data;
-
-  code += `plt = (ggplot(df, aes(x = '${x_title}', y = '${y_title}'))\n`;
-  
-  code += canvas_data;
-
-  code += `)\n`;
-  return code
+  // Returning code for data loading and plot creation
+  var code = `{
+    'data': ${input_data},
+    'plot': (ggplot(${input_data}, aes(x='${x_title}', y='${y_title}')) ${plot_data})
+  }`;
+  return code;
 };
 
+// 'fullCanvas' block definition
+Blockly.Blocks['fullCanvas'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Canvas:")
+        .appendField(new Blockly.FieldTextInput("canvasName"), "canvasName");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "savePlot")
+        .appendField("Save Plot");
+    this.appendStatementInput("plots")
+        .setCheck(null);
+    this.setColour(210);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+// 'fullCanvas' Python generator
+Blockly.Python['fullCanvas'] = function(block) {
+  var canvasName = block.getFieldValue('canvasName');
+  var savePlot = block.getFieldValue('savePlot') == "TRUE";
+  var plotsCode = Blockly.Python.statementToCode(block, 'plots', Blockly.Python.ORDER_NONE).trim();
+
+  var code = `import pandas as pd\nfrom plotnine import *\n\n`;
+
+  code += `plot_infos = [${plotsCode}]\n`;
+  code += `for plot_info in plot_infos:\n`;
+  code += `    df = plot_info['data']\n`;
+  code += `    plot = plot_info['plot']\n`;
+  code += `    ggsave(plot, filename='${canvasName}_' + str(plot_infos.index(plot_info)) + '.png')\n`;
+
+  return code;
+};
