@@ -197,7 +197,7 @@ Blockly.Blocks['plot_one'] = {
     //     .appendField(new Blockly.FieldTextInput("\"sse\""), "y");
     this.appendEndRowInput()
         .appendField("Plot Color:  ")
-        .appendField(new Blockly.FieldDropdown([["Black",'color = "black"'], ["Red",'color = "red"'], ["Blue", 'color = "blue"'], ["Green", 'color = "green"']]), "myColor");
+        .appendField(new Blockly.FieldDropdown([["Black",'fill = "black"'], ["Red",'fill = "red"'], ["Blue", 'fill = "blue"'], ["Green", 'fill = "green"']]), "myColor");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -378,6 +378,9 @@ Blockly.Python['fullCanvas'] = function(block) {
     }
     if (line.includes('df')) {
       line = line.trim();
+    }
+    if (line.includes(')geom')) {
+      line = line.replaceAll(')geom', `)\n${canvasName} += geom`);
     }
     code += line + '\n';
   }
