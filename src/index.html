@@ -26,17 +26,20 @@
             <category name="Data" colour="#995ba5">
                 <block type="dataframe"></block>
                 <block type="import"></block>
+                <block type="export"></block>
                 <block type="remove_null"></block>
+                <block type="fullCanvas"></block>
+                <block type="plot"></block>
+
             </category>
 
             <category name="Plots" colour="green">
-                <block type="fullCanvas"></block>
-                <block type="plot"></block>
+                <block type="canvas"></block>
                 <block type="plot_one"></block>
                 <block type="plot_2d"></block>
             </category>
             <category name="Visuals (cosmetics, themes)" colour="blue">
-                {% comment %} <block type="themes"></block> {% endcomment %}
+                <block type="themes"></block>
             </category>
             <category name="Models" colour="red"></category>
 
@@ -46,6 +49,8 @@
         <button onclick="generatePythonCode()">Generate Python</button>
         <button onclick="savePythonCode()">Save Python</button>
         <button onclick="runPythonCode()">Run Python</button> <!-- This button should display a plot -->
+        <button onclick="generateCode()">Generate JavaScript</button>
+        <button onclick="runCode()">Run JavaScript</button>
         <button onclick="saveBlocks()">Save Blocks</button>
         <button onclick="loadBlocks()">Load Blocks</button>
         <button id="showPlotBtn">Show Plot</button> <!-- New Button -->
@@ -131,12 +136,6 @@
 
 
 
-
-
-
-
-
-
             
             // try {
             //     fetch('http://127.0.0.1:5000/execute-code', {
@@ -165,6 +164,22 @@
         //         document.getElementById('outputDiv').innerText = 'Error: ' + e;
         //     }
         // }
+
+        function generateCode() {
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            document.getElementById('codeDiv').innerText = code;
+        }
+
+        function runCode() {
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            try {
+                var output = eval(code);
+                document.getElementById('outputDiv').innerText = output;
+            } catch (e) {
+                document.getElementById('outputDiv').innerText = 'Error: ' + e;
+            }
+        }
+
 
         function saveBlocks() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
