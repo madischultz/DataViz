@@ -228,7 +228,7 @@ Blockly.Blocks['plot_2d'] = {
         .appendField(new Blockly.FieldTextInput("energy"), "y");
     this.appendDummyInput()
         .appendField("Plot Type:  ")
-        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point("], ["Line Plot","geom_line("], ["Histogram","geom_histogram("], ["Regression", "stat_smooth(method = 'lm',"]]), "Plot_Type");
+        .appendField(new Blockly.FieldDropdown([["Scatter Plot","geom_point("], ["Line Plot","geom_line("], ["Histogram","geom_histogram("], ["Regression", "stat_smooth("]]), "Plot_Type");
     this.appendDummyInput()
         .appendField("Plot Color:  ")
         .appendField(new Blockly.FieldDropdown([["Black",'color = "black"'], ["Red",'color = "red"'], ["Blue", 'color = "blue"'], ["Green", 'color = "green"']]), "myColor");
@@ -381,6 +381,9 @@ Blockly.Python['fullCanvas'] = function(block) {
     }
     if (line.includes(')geom')) {
       line = line.replaceAll(')geom', `)\n${canvasName} += geom`);
+    }
+    if (line.includes(')stat')) {
+      line = line.replaceAll(')stat', `)\n${canvasName} += stat`);
     }
     code += line + '\n';
   }

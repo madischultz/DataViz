@@ -149,26 +149,11 @@
 
         }
 
-        // function runPythonCode() {
-        //     const pythonCode = python.pythonGenerator.workspaceToCode(workspace);
-        //     console.log(pythonCode)
-        //     try {
-        //         var output = eval(pythonCode);
-        //         document.getElementById('outputDiv').innerText = output;
-        //     } catch (e) {
-        //         document.getElementById('outputDiv').innerText = 'Error: ' + e;
-        //     }
-        // }
-
-        function generateCode() {
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
-            document.getElementById('codeDiv').innerText = code;
-        }
-
-        function runCode() {
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
+        function runPythonCode() {
+            const pythonCode = python.pythonGenerator.workspaceToCode(workspace);
+            console.log(pythonCode)
             try {
-                var output = eval(code);
+                var output = eval(pythonCode);
                 document.getElementById('outputDiv').innerText = output;
             } catch (e) {
                 document.getElementById('outputDiv').innerText = 'Error: ' + e;
