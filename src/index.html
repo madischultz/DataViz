@@ -82,34 +82,44 @@
         }
 
         function runPythonCode() {
-        //     var pythonCode = Blockly.Python.workspaceToCode(workspace);
+            var pythonCode = python.pythonGenerator.workspaceToCode(workspace);
+            console.log(`pythonCode: ${pythonCode}`)
 
-        //     // Sending a POST request to the Flask server with the Python code
-        //     fetch('https://austintsimpson4.pythonanywhere.com/execute-code', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({ code: pythonCode })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             // Displaying the result from the Flask server in outputDiv
-        //             document.getElementById('outputDiv').innerText = data.result;
-        //         })
-        //         .catch(error => {
-        //             // Handling errors
-        //             document.getElementById('outputDiv').innerText = 'Error: ' + error;
-        //         });
-        // }
+            try {
+                fetch('http://127.0.0.1:5000/execute-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: pythonCode,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Response from Flask server:', data);
 
-        var pythonCode = python.pythonGenerator.workspaceToCode(workspace);
-        try {
-            var output = eval(pythonCode);
-            document.getElementById('outputDiv').innerText = output;
-        } catch (e) {
-            document.getElementById('outputDiv').innerText = 'Error: ' + e;
-        }
+                        // Assuming data contains either 'image_path' or 'encoded_image_data'
+                        if (data.image_path) {
+                            // Display image using the image path
+                            // For example, you can set the source of an img element
+                            console.log("test1")
+                            // document.getElementById('outputImage').src = data.image_path;
+                        } else if (data.encoded_image_data) {
+                            console.log("test2")
+                            // Display image using base64-encoded image data
+                            // For example, you can set the source of an img element
+                            // document.getElementById('outputImage').src = `data:image/png;base64,${data.encoded_image_data}`;
+                        }
+                    })
+                    .catch(error => {
+                        console.log("test3")
+                        console.error('Error:', error);
+                    });
+            } catch (e) {
+                console.log("test4")
+                // document.getElementById('outputDiv').innerText = 'Error: ' + e;
+            }
 
 
         }
