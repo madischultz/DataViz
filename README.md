@@ -19,10 +19,16 @@ Run locally OR in colab:
 
 * Locally:
     * pip install pandas
-    * pip install ggplot
-    * Run the generated_code.py file from the directory it's saved to:
-    * python3 generated_code.py
-    * The png will be downloaded in the same directory
+    * pip install plotnine
+    * pip install Flask
+    * pip install flask_cors
+ 
+    * To run the Flask server, cd into /src/server and run server.py
+      
+    * If you just want the .py code that's generated, click Save Python and run the generated_code.py file from the directory it's saved to:
+        * python3 generated_code.py
+        * The png will be downloaded in the same directory
+
 
 * Colab:
     * Copy generated python code
