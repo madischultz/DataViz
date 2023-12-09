@@ -396,6 +396,8 @@ Blockly.Python['fullCanvas'] = function(block) {
     code += `ggsave(${canvasName}, filename='${canvasName}.png')\n`;
   }
 
+  code += `${canvasName}\n`
+
   return code;
 };
 

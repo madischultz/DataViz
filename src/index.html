@@ -21,6 +21,7 @@
     </div>
     <div class="row">
         <div id="blocklyDiv" class="full-width"></div>
+        <img src="server/canvasName.png" alt="ggplot Plot"></div>
         <xml id="toolbox" style="display: none">
             <category name="Data" colour="#995ba5">
                 <block type="dataframe"></block>
@@ -120,6 +121,8 @@
                 console.log("test4")
                 // document.getElementById('outputDiv').innerText = 'Error: ' + e;
             }
+        
+            document.getElementById("outputImage").src = "canvasName.png";
 
 
         }
