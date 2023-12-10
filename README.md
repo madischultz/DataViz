@@ -1,4 +1,4 @@
-#DataViz
+# DataViz
 
 Contributors: Tyler Kay, Austin Simpson, Madi Schultz, Diego Lopez Ramos
 
