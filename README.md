@@ -6,7 +6,7 @@ Our project of incorporating Blockly and custom add-ons for data exploration and
 
 
 Videos
-- (insert)
+- https://www.youtube.com/playlist?list=PL6rDyxPExh7Tz7ywNUjjBJ4H3SKH4Q3_Q 
 
 How to Use:
 - Access our blockly at https://madischultz.github.io/DataViz/src/ through github pages
