@@ -6,12 +6,9 @@ Our project of incorporating Blockly and custom add-ons for data exploration and
 
 
 Videos
-- 
+- (insert)
 
-Blockly demo
-
-- Access our presentation: https://docs.google.com/presentation/d/1E4X336iszAeC5SX_QoV9ttY3jbIWKszzFDEKNGJQEKY/edit?usp=sharing 
-
+How to Use:
 - Access our blockly at https://madischultz.github.io/DataViz/src/ through github pages
 
 Manipulate Blocks
@@ -46,3 +43,5 @@ Run locally OR in colab:
     * Image will show up in files tab in the notebook
     * (Optional) type additional line: plt
         * displays image below the code after running
+     
+How to add on: 
