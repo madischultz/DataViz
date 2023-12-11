@@ -1,7 +1,13 @@
 # DataViz
 
-Contributors: Tyler Kay, Austin Simpson, Madi Schultz, Diego Lopez Ramos (Add more on who did what)
+Contributions:
+- DSL Idea/Write up/Server: Tyler
+- Github/Pages: Madi
+- Converting to python/Additonal block features: Austin
+- Creating graphs with pandas: Diego
+- Create Blocks/Generating Code: Austin, Madi, Diego, Tyler
 
+Motivation:
 Our project of incorporating Blockly and custom add-ons for data exploration and visualization in data science has the potential to make it more accessible to a wider audience. It can streamline the process of creating, experimenting with, and sharing data visualizations, ultimately enhancing decision-making across various domains, even outside of data science.
 
 
