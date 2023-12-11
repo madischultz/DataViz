@@ -68,6 +68,9 @@
             scrollbars: true
         });
 
+        var defaultBlocksDom = Blockly.utils.xml.textToDom(defaultBlocks);
+        Blockly.Xml.domToWorkspace(defaultBlocksDom, workspace);
+
         function generatePythonCode() {
             var code = `import pandas as pd\nfrom plotnine import *\n\n`
             code += Blockly.Python.workspaceToCode(workspace); // Change JavaScript to Python
