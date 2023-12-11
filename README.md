@@ -1,6 +1,6 @@
 # DataViz
 
-Contributors: Tyler Kay, Austin Simpson, Madi Schultz, Diego Lopez Ramos
+Contributors: Tyler Kay, Austin Simpson, Madi Schultz, Diego Lopez Ramos (Add more on who did what)
 
 Our project of incorporating Blockly and custom add-ons for data exploration and visualization in data science has the potential to make it more accessible to a wider audience. It can streamline the process of creating, experimenting with, and sharing data visualizations, ultimately enhancing decision-making across various domains, even outside of data science.
 
@@ -44,4 +44,6 @@ Run locally OR in colab:
     * (Optional) type additional line: plt
         * displays image below the code after running
      
-How to add on: 
+How to add on & Future contributions: 
+
+
