@@ -1,0 +1,31 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fullCanvas" id="oz;#+H-)/tzX|/x(w@mi" x="81" y="29">
+    <field name="canvasName">canvasName</field>
+    <field name="theme">theme_classic</field>
+    <field name="savePlot">TRUE</field>
+    <statement name="plots">
+      <block type="plot" id="7MDtL?w2?V2]bF0^PQbh">
+        <statement name="inData">
+          <block type="dataframe" id="ZcjsWOnub:,`|W+Ud(QM">
+            <value name="NAME">
+              <block type="import" id="jA;2KDnSv}nyMh,{].3w">
+                <field name="input_data">https://raw.githubusercontent.com/cmparlettpelleriti/CPSC392ParlettPelleriti/master/Data/Music_data.csv</field>
+              </block>
+            </value>
+            <next>
+              <block type="remove_null" id="k6~CiR#g#}FJO,M8f0eK"></block>
+            </next>
+          </block>
+        </statement>
+        <statement name="myplot">
+          <block type="plot_2d" id="56h9DL^V*duhb$JNa%rK">
+            <field name="x">danceability</field>
+            <field name="y">energy</field>
+            <field name="Plot_Type">stat_smooth(</field>
+            <field name="myColor">color = "red"</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
