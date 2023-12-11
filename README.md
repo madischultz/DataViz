@@ -17,7 +17,7 @@ Videos
 How to Use:
 - Access our blockly at https://madischultz.github.io/DataViz/src/ through github pages
 
-Manipulate Blocks
+- Manipulate Blocks
 
     1. Drag the "Dataframe" block to the right side
     2. Place the "Link to input data.." block inside of the Dataframe block
@@ -28,27 +28,27 @@ Manipulate Blocks
     7. Click "Generate Python"
     8. (If running locally) Click "Save Python" 
 
-Run locally OR in colab: 
+- Run locally OR in colab: 
 
-* Locally:
-    * pip install pandas
-    * pip install plotnine
-    * pip install Flask
-    * pip install flask_cors
- 
-    * To run the Flask server, cd into /src/server and run server.py
-      
-    * If you just want the .py code that's generated, click Save Python and run the generated_code.py file from the directory it's saved to:
-        * python3 generated_code.py
-        * The png will be downloaded in the same directory
+    * Locally:
+        * pip install pandas
+        * pip install plotnine
+        * pip install Flask
+        * pip install flask_cors
+    
+        * To run the Flask server, cd into /src/server and run server.py
+        
+        * If you just want the .py code that's generated, click Save Python and run the generated_code.py file from the directory it's saved to:
+            * python3 generated_code.py
+            * The png will be downloaded in the same directory
 
 
-* Colab:
-    * Copy generated python code
-    * Press play to run
-    * Image will show up in files tab in the notebook
-    * (Optional) type additional line: plt
-        * displays image below the code after running
+    * Colab:
+        * Copy generated python code
+        * Press play to run
+        * Image will show up in files tab in the notebook
+        * (Optional) type additional line: plt
+            * displays image below the code after running
      
 How to add on & Future contributions: 
 
