@@ -2,7 +2,7 @@
 
 Contributions:
 - DSL Idea/Write up/Server: Tyler
-- Github/Pages: Madi
+- Github/Pages/Default Set Up: Madi
 - Converting to python/Additonal block features: Austin
 - Creating graphs with pandas: Diego
 - Create Blocks/Generating Code: Austin, Madi, Diego, Tyler
