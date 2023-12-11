@@ -51,5 +51,6 @@ How to Use:
             * displays image below the code after running
      
 How to add on & Future contributions: 
-
+- Our inital next steps were to add machine learning models to show how simple it is to build something as simple as a linear regression model. This is something we would like to add in the future.
+- Another future contributions worth noting is configuring this application to be on different machines (server-side and client-side). Currently, the images are generated can only be saved on the same local machines. We intend to have it display on the client end. 
 
